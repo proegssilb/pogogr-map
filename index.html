@@ -9,16 +9,34 @@
 <body>
   <div id="mapDiv"></div>
   <script>
+  function getRadius(steps) {
+    var scanRadius=70;
+    return ((steps - 1) * Math.sqrt(3) * scanRadius) + scanRadius;
+  }
   var map;
   function initMap() {
-    map = new google.maps.Map(document.getElementById('mapDiv'), {
+    var centerPnt = {lat: 42.96865281079151, lng: -85.65021336078644};
+    var map = new google.maps.Map(document.getElementById('mapDiv'), {
       //42.96865281079151, -85.65021336078644
-      center: {lat: 42.96865281079151, lng: -85.65021336078644},
-      zoom: 15
+      center: centerPnt,
+      zoom: 12
+    });
+    centerPnt = new google.maps.LatLng(centerPnt.lat, centerPnt.lng);
+    var radius = getRadius(19);
+    var path = [
+      google.maps.geometry.spherical.computeOffset(centerPnt, radius, 30),
+      google.maps.geometry.spherical.computeOffset(centerPnt, radius, 90),
+      google.maps.geometry.spherical.computeOffset(centerPnt, radius, 150),
+      google.maps.geometry.spherical.computeOffset(centerPnt, radius, 210),
+      google.maps.geometry.spherical.computeOffset(centerPnt, radius, 270),
+      google.maps.geometry.spherical.computeOffset(centerPnt, radius, 330)
+    ];
+    map.data.add({
+      geometry: new google.maps.Data.Polygon([path])
     });
   }
   </script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDORJiLwtjsICwo4Mho-sFr7pFUhj6uDnc&callback=initMap"
+  <script src="https://maps.googleapis.com/maps/api/js?libraries=geometry&key=AIzaSyDORJiLwtjsICwo4Mho-sFr7pFUhj6uDnc&callback=initMap"
     async defer></script>
 </body>
 </html>
