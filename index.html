@@ -9,30 +9,56 @@
 <body>
   <div id="mapDiv"></div>
   <script>
+  var scanRadius=70;
+
+  function distanceBetweenHexes(steps) {
+    var radius = getRadius(steps);
+    return radius * 2 - hexOverlap;
+  }
   function getRadius(steps) {
-    var scanRadius=70;
     return ((steps - 1) * Math.sqrt(3) * scanRadius) + scanRadius;
+  }
+  function getNextCenter(currentCenter, heading, steps) {
+    var radius = getRadius(steps);
+    var corner1 = google.maps.geometry.spherical.computeOffset(currentCenter, radius, heading + 30);
+    var corner2 = google.maps.geometry.spherical.computeOffset(currentCenter, radius, heading - 30);
+    var midpoint = google.maps.geometry.spherical.interpolate(corner1, corner2, 0.5);
+    return google.maps.geometry.spherical.interpolate(currentCenter, midpoint, 2.0);
+  }
+  function getHex(center, steps) {
+    var radius = getRadius(steps);
+    return [
+      google.maps.geometry.spherical.computeOffset(center, radius, 30),
+      google.maps.geometry.spherical.computeOffset(center, radius, 90),
+      google.maps.geometry.spherical.computeOffset(center, radius, 150),
+      google.maps.geometry.spherical.computeOffset(center, radius, 210),
+      google.maps.geometry.spherical.computeOffset(center, radius, 270),
+      google.maps.geometry.spherical.computeOffset(center, radius, 330)
+    ];
   }
   var map;
   function initMap() {
     var centerPnt = {lat: 42.96865281079151, lng: -85.65021336078644};
+    var steps = 19;
     var map = new google.maps.Map(document.getElementById('mapDiv'), {
       //42.96865281079151, -85.65021336078644
       center: centerPnt,
       zoom: 12
     });
     centerPnt = new google.maps.LatLng(centerPnt.lat, centerPnt.lng);
-    var radius = getRadius(19);
-    var path = [
-      google.maps.geometry.spherical.computeOffset(centerPnt, radius, 30),
-      google.maps.geometry.spherical.computeOffset(centerPnt, radius, 90),
-      google.maps.geometry.spherical.computeOffset(centerPnt, radius, 150),
-      google.maps.geometry.spherical.computeOffset(centerPnt, radius, 210),
-      google.maps.geometry.spherical.computeOffset(centerPnt, radius, 270),
-      google.maps.geometry.spherical.computeOffset(centerPnt, radius, 330)
-    ];
+    var path = getHex(centerPnt, steps)
     map.data.add({
       geometry: new google.maps.Data.Polygon([path])
+    });
+    var center2 = getNextCenter(centerPnt, 60, steps);
+    var path2 = getHex(center2, steps);
+    map.data.add({
+      geometry: new google.maps.Data.Polygon([path2])
+    });
+    var center3 = getNextCenter(centerPnt, 0, steps);
+    var path3 = getHex(center3, steps);
+    map.data.add({
+      geometry: new google.maps.Data.Polygon([path3])
     });
   }
   </script>
