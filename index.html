@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Pokemon Go GR Scan Map</title>
+  <link rel="stylesheet" href="style.css"
+</head>
+<body>
+  <div id="mapDiv"></div>
+  <script>
+  var map;
+  function initMap() {
+    map = new google.maps.Map(document.getElementById('mapDiv'), {
+      //42.96865281079151, -85.65021336078644
+      center: {lat: 42.96865281079151, lng: -85.65021336078644},
+      zoom: 15
+    });
+  }
+  </script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDORJiLwtjsICwo4Mho-sFr7pFUhj6uDnc&callback=initMap"
+    async defer></script>
+</body>
+</html>
