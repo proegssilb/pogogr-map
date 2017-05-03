@@ -50,16 +50,33 @@
     map.data.add({
       geometry: new google.maps.Data.Polygon([path])
     });
-    var center2 = getNextCenter(centerPnt, 60, steps);
-    var path2 = getHex(center2, steps);
-    map.data.add({
-      geometry: new google.maps.Data.Polygon([path2])
-    });
-    var center3 = getNextCenter(centerPnt, 0, steps);
-    var path3 = getHex(center3, steps);
-    map.data.add({
-      geometry: new google.maps.Data.Polygon([path3])
-    });
+    var lastRingStart = centerPnt;
+    for (ringNum=1; ringNum < 5; ringNum++) {
+      // Setup the first hex of the ring.
+      var ringStart = getNextCenter(lastRingStart, 0, steps);
+      var firstHexPath = getHex(ringStart, steps);
+      map.data.add({
+        geometry: new google.maps.Data.Polygon([firstHexPath])
+      });
+      // Reset lastRingStart for next ring
+      lastRingStart = ringStart
+      // Loop through each side
+      var center = lastRingStart
+      for (var angle=120; angle <= 420; angle = angle+60) {
+        // Multiple hexes per side, except for the first ring
+        var sideLength = ringNum;
+        if (angle > 360) {
+          sideLength -= 1;
+        }
+        for (var i = 0; i < sideLength; i++) {
+          center = getNextCenter(center, angle, steps);
+          var path = getHex(center, steps);
+          map.data.add({
+            geometry: new google.maps.Data.Polygon([path])
+          })
+        }
+      }
+    }
   }
   </script>
   <script src="https://maps.googleapis.com/maps/api/js?libraries=geometry&key=AIzaSyDORJiLwtjsICwo4Mho-sFr7pFUhj6uDnc&callback=initMap"
