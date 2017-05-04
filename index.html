@@ -27,6 +27,17 @@
     });
     centerPnt = new google.maps.LatLng(centerPnt.lat, centerPnt.lng);
     renderHexGrid(centerPnt, map, steps);
+    var regionHexes = [{ring: 2, offset: 4}, {ring: 3, offset: 7}, {ring: 2, offset: 5}];
+    var path = regionPath(centerPnt, steps, regionHexes);
+    path.forEach(function (hex) {
+      map.data.add({
+        geometry: new google.maps.Data.Polygon([hex]),
+        properties: {color: '#FF2222'}
+      });
+    });
+    map.data.setStyle(function(feature) {
+      return {fillColor: feature.getProperty('color'), strokeWeight: 1};
+    });
   }
   </script>
   <script src="https://maps.googleapis.com/maps/api/js?libraries=geometry&key=AIzaSyDORJiLwtjsICwo4Mho-sFr7pFUhj6uDnc&callback=initMap"

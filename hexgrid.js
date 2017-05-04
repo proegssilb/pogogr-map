@@ -31,7 +31,7 @@ function getHex(center, steps) {
 
 function hexGridValidOffset(ringNum, offset) {
   if (ringNum == 0) {
-    return offset == 0;
+    return offset === 0;
   }
   ringNum = ringNum + 1;
   var currRing = ringNum - 1
@@ -54,13 +54,13 @@ function hexGridIdToCoord(center, steps, ringNum, offset) {
   if (!hexGridValidOffset(ringNum, offset)) {
     return null;
   }
-  if (ringNum == 0) {
+  if (ringNum === 0) {
     return center;
   }
   // Hybrid iterative/explicit; follow a spoke, then the ring's edge.
 
   // Find the right spoke...
-  var sideNum = Math.floor(offset/ringNum);
+  var sideNum = getHexSideNum(ringNum, offset);
   var spokeAngle = sideNum*60;
   // Follow the spoke...
   var edgeStart = center;
@@ -78,28 +78,15 @@ function hexGridIdToCoord(center, steps, ringNum, offset) {
   return hexLoc;
 }
 
+function getHexSideNum(ringNum, offset) {
+  return Math.floor(offset/ringNum);
+}
+
 function* hexGridCenters(center, steps, maxRings) {
   yield center;
-  if (maxRings == 0) {
+  if (maxRings === 0) {
     return;
   }
-  // for (var ringNum=1; ringNum < maxRings+1; ringNum++) {
-  //   // Setup the first hex of the ring.
-  //   var ringStart = getNextCenter(lastRingStart, 0, steps);
-  //   lastRingStart = ringStart
-  //   yield ringStart;
-  //   var center = lastRingStart
-  //   for (var angle=120; angle <= 420; angle = angle+60) {
-  //     var sideLength = ringNum;
-  //     if (angle > 360) {
-  //       sideLength -= 1;
-  //     }
-  //     for (var i=0; i < sideLength; i++) {
-  //       center = getNextCenter(center, angle, steps);
-  //       yield center;
-  //     }
-  //   }
-  // }
   for (var ringNum = 1; ringNum <= maxRings; ringNum++) {
     for (var offset=0; offset < hexGridMaxOffset(ringNum); offset++) {
       yield hexGridIdToCoord(center, steps, ringNum, offset);
@@ -107,11 +94,94 @@ function* hexGridCenters(center, steps, maxRings) {
   }
 }
 
+function regionPath(center, steps, hexCoords) {
+  return hexCoords.map(function(hex) {
+    var hexLoc = hexGridIdToCoord(center, steps, hex.ring, hex.offset);
+    return getHex(hexLoc, steps);
+  });
+}
+
+// TODO: Finish implementing this.
+// function regionPath(center, steps, hexCoords) {
+//   var path = [];
+//   for (const hexCoord of hexCoords) {
+//     if (path.length === 0) {
+//       path.push(Object.assign(hexCoord, {sides:[0,1,2,3,4,5]}));
+//       continue;
+//     }
+//     var currRing = hexCoord.ring;
+//     for (const existingCoord of path) {
+//       existingRing = existingCoord.ring;
+//       // We need these for 2+ branches of the if-else block below.
+//       var insideCoord = {};
+//       var outsideCoord = {};
+//       filledHexCoord = Object.assign(hexCoord, {sides:[0,1,2,3,4,5]}
+//       if(currRing === existingRing) {
+//         var firstHex = {};
+//         var secondHex = {};
+//         if (existingCoord.offset === hexCoord.offset) {
+//           // Duplicate entry.
+//           break;
+//         }
+//         else if (existingCoord.offset < hexCoord.offset) {
+//           firstHex = existingCoord;
+//           secondHex = filledHexCoord;
+//         } else {
+//           firstHex = filledHexCoord;
+//           secondHex = existingCoord;
+//         }
+//         var firstHexSide = getHexSideNum(firstHex.ring, firstHex.offset);
+//         var joinSide = firstHexSide + 2;  // I leave the proof of this as an exercise to the reader.
+//         doHexJoin(firstHex, secondHex, joinSide);
+//         path.push(secondHex);
+//       }
+//       // These blocks are kind of not DRY, but there's a matrix effect going on.
+//       else if(currRing - existingRing === 1) {
+//         var outsideCoord = filledHexCoord;
+//         var insideCoord = existingCoord;
+//         var translatedOffset = outsideCoord.offset * insideCoord.ring/outsideCoord.ring;
+//         if (insideCoord.offset === Math.floor(translatedOffset)) {
+//           // We have a match!
+//           // FIXME: Implement this.
+//           // `joinSide == sideNum(outsideCoord) + 4` ?
+//         }
+//         if (insideCoord.offset === Math.ceil(translatedOffset)) {
+//           // We have a match!
+//           // FIXME: Implement this.
+//           // `joinSide == sideNum(outsideCoord) + 3` ?
+//         }
+//       }
+//       else if(currRing - existingRing === -1) {
+//         var insideCoord = filledHexCoord;
+//         var outsideCoord = existingCoord;
+//         var translatedOffset = outsideCoord.offset * insideCoord.ring/outsideCoord.ring;
+//         if (insideCoord.offset === Math.floor(translatedOffset)) {
+//           // We have a match!
+//           // FIXME: Implement this.
+//           // `joinSide == sideNum(outsideCoord) + 4` ?
+//         }
+//         if (insideCoord.offset === Math.ceil(translatedOffset)) {
+//           // We have a match!
+//           // FIXME: Implement this.
+//           // `joinSide == sideNum(outsideCoord) + 3` ?
+//         }
+//       }
+//     }
+//   }
+// }
+//
+// function mergeHexes(hex1, hex2, joiningSideNum) {
+//   hex1.sides.splice(hex1.sides.indexOf(joiningSideNum), 1)
+//   const altJoiningSideNum = (joiningSideNum + 3) % 6
+//   hex2.sides.splice(hex2.sides.indexOf(altJoiningSideNum), 1)
+// }
+
 function renderHexGrid(center, map, steps) {
   for(const hexCenter of hexGridCenters(center, steps, 5)) {
     const path = getHex(hexCenter, steps);
     map.data.add({
-      geometry: new google.maps.Data.Polygon([path])
-    })
+      geometry: new google.maps.Data.Polygon([path]),
+      properties: {color: '#222222'}
+    });
   }
 }
