@@ -8,34 +8,8 @@
 </head>
 <body>
   <div id="mapDiv"></div>
+  <script src="hexgrid.js"></script>
   <script>
-  var scanRadius=70;
-
-  function distanceBetweenHexes(steps) {
-    var radius = getRadius(steps);
-    return radius * 2 - hexOverlap;
-  }
-  function getRadius(steps) {
-    return ((steps - 1) * Math.sqrt(3) * scanRadius) + scanRadius;
-  }
-  function getNextCenter(currentCenter, heading, steps) {
-    var radius = getRadius(steps);
-    var corner1 = google.maps.geometry.spherical.computeOffset(currentCenter, radius, heading + 30);
-    var corner2 = google.maps.geometry.spherical.computeOffset(currentCenter, radius, heading - 30);
-    var midpoint = google.maps.geometry.spherical.interpolate(corner1, corner2, 0.5);
-    return google.maps.geometry.spherical.interpolate(currentCenter, midpoint, 2.0);
-  }
-  function getHex(center, steps) {
-    var radius = getRadius(steps);
-    return [
-      google.maps.geometry.spherical.computeOffset(center, radius, 30),
-      google.maps.geometry.spherical.computeOffset(center, radius, 90),
-      google.maps.geometry.spherical.computeOffset(center, radius, 150),
-      google.maps.geometry.spherical.computeOffset(center, radius, 210),
-      google.maps.geometry.spherical.computeOffset(center, radius, 270),
-      google.maps.geometry.spherical.computeOffset(center, radius, 330)
-    ];
-  }
   var map;
   function initMap() {
     var centerPnt = {lat: 42.96865281079151, lng: -85.65021336078644};
@@ -46,37 +20,7 @@
       zoom: 12
     });
     centerPnt = new google.maps.LatLng(centerPnt.lat, centerPnt.lng);
-    var path = getHex(centerPnt, steps)
-    map.data.add({
-      geometry: new google.maps.Data.Polygon([path])
-    });
-    var lastRingStart = centerPnt;
-    for (ringNum=1; ringNum < 5; ringNum++) {
-      // Setup the first hex of the ring.
-      var ringStart = getNextCenter(lastRingStart, 0, steps);
-      var firstHexPath = getHex(ringStart, steps);
-      map.data.add({
-        geometry: new google.maps.Data.Polygon([firstHexPath])
-      });
-      // Reset lastRingStart for next ring
-      lastRingStart = ringStart
-      // Loop through each side
-      var center = lastRingStart
-      for (var angle=120; angle <= 420; angle = angle+60) {
-        // Multiple hexes per side, except for the first ring
-        var sideLength = ringNum;
-        if (angle > 360) {
-          sideLength -= 1;
-        }
-        for (var i = 0; i < sideLength; i++) {
-          center = getNextCenter(center, angle, steps);
-          var path = getHex(center, steps);
-          map.data.add({
-            geometry: new google.maps.Data.Polygon([path])
-          })
-        }
-      }
-    }
+    renderHexGrid(centerPnt, map, steps);
   }
   </script>
   <script src="https://maps.googleapis.com/maps/api/js?libraries=geometry&key=AIzaSyDORJiLwtjsICwo4Mho-sFr7pFUhj6uDnc&callback=initMap"
