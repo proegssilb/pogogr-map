@@ -18,25 +18,25 @@
   <script>
   var map;
   function initMap() {
-    var centerPnt = {lat: 42.96865281079151, lng: -85.65021336078644};
-    var steps = 19;
-    var map = new google.maps.Map(document.getElementById('mapDiv'), {
-      //42.96865281079151, -85.65021336078644
-      center: centerPnt,
-      zoom: 12
-    });
-    centerPnt = new google.maps.LatLng(centerPnt.lat, centerPnt.lng);
-    renderHexGrid(centerPnt, map, steps);
-    var regionHexes = [{ring: 2, offset: 4}, {ring: 3, offset: 7}, {ring: 2, offset: 5}];
-    var path = regionPath(centerPnt, steps, regionHexes);
-    path.forEach(function (hex) {
-      map.data.add({
-        geometry: new google.maps.Data.Polygon([hex]),
-        properties: {color: '#FF2222'}
+    var config = fetch('config.json').then(function(response) {
+      return response.json();
+    }).then(function (config) {
+      var mapConfig = config.maps[0];
+      var centerPnt = new google.maps.LatLng(config.center.lat, config.center.long);
+      map = new google.maps.Map(document.getElementById('mapDiv'), {
+        center: centerPnt,
+        zoom: config.zoom
       });
-    });
-    map.data.setStyle(function(feature) {
-      return {fillColor: feature.getProperty('color'), strokeWeight: 1};
+      var mapCenter = new google.maps.LatLng(mapConfig.lat, mapConfig.long)
+      renderHexGrid(mapCenter, map, mapConfig.steps);
+      for (const regionConfig of mapConfig.regions) {
+        renderRegion(map, mapCenter, mapConfig.steps, regionConfig.hexes, regionConfig.color);
+      }
+
+      // Use the color property to style features
+      map.data.setStyle(function(feature) {
+        return {fillColor: feature.getProperty('color'), strokeWeight: 1};
+      });
     });
   }
   </script>

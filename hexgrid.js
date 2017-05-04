@@ -101,6 +101,26 @@ function regionPath(center, steps, hexCoords) {
   });
 }
 
+function renderRegion(map, center, steps, hexes, color) {
+  var path = regionPath(center, steps, hexes);
+  path.forEach(function (hex) {
+    map.data.add({
+      geometry: new google.maps.Data.Polygon([hex]),
+      properties: {color: color}
+    });
+  });
+}
+
+function renderHexGrid(center, map, steps) {
+  for(const hexCenter of hexGridCenters(center, steps, 5)) {
+    const path = getHex(hexCenter, steps);
+    map.data.add({
+      geometry: new google.maps.Data.Polygon([path]),
+      properties: {color: '#222222'}
+    });
+  }
+}
+
 // TODO: Finish implementing this.
 // function regionPath(center, steps, hexCoords) {
 //   var path = [];
@@ -175,13 +195,3 @@ function regionPath(center, steps, hexCoords) {
 //   const altJoiningSideNum = (joiningSideNum + 3) % 6
 //   hex2.sides.splice(hex2.sides.indexOf(altJoiningSideNum), 1)
 // }
-
-function renderHexGrid(center, map, steps) {
-  for(const hexCenter of hexGridCenters(center, steps, 5)) {
-    const path = getHex(hexCenter, steps);
-    map.data.add({
-      geometry: new google.maps.Data.Polygon([path]),
-      properties: {color: '#222222'}
-    });
-  }
-}
