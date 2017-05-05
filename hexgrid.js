@@ -103,7 +103,8 @@ function regionPath(center, steps, hexCoords) {
 
 function renderRegion(map, center, steps, hexes, color, title) {
   var locs = hexes.map(function(hex) {return hexGridIdToCoord(center, steps, hex.ring, hex.offset);});
-  var path = locs.map(function(loc) {return getHex(loc, steps);});
+  //var path = locs.map(function(loc) {return getHex(loc, steps);});
+  var path = regionPath(center, steps, hexes);
   path.forEach(function (hex) {
     map.data.add({
       geometry: new google.maps.Data.Polygon([hex]),
@@ -121,17 +122,16 @@ function renderRegion(map, center, steps, hexes, color, title) {
   })
 }
 
-function renderHexGrid(center, map, steps) {
-  for(const hexCenter of hexGridCenters(center, steps, 5)) {
+function renderHexGrid(center, map, steps, ringCount) {
+  for(const hexCenter of hexGridCenters(center, steps, ringCount)) {
     const path = getHex(hexCenter, steps);
     map.data.add({
       geometry: new google.maps.Data.Polygon([path]),
-      properties: {color: '#222222'}
+      properties: { color: '#222222' }
     });
   }
 }
 
-// TODO: Finish implementing this.
 // function regionPath(center, steps, hexCoords) {
 //   var path = [];
 //   for (const hexCoord of hexCoords) {
@@ -145,7 +145,7 @@ function renderHexGrid(center, map, steps) {
 //       // We need these for 2+ branches of the if-else block below.
 //       var insideCoord = {};
 //       var outsideCoord = {};
-//       filledHexCoord = Object.assign(hexCoord, {sides:[0,1,2,3,4,5]}
+//       filledHexCoord = Object.assign(hexCoord, {sides:[0,1,2,3,4,5]});
 //       if(currRing === existingRing) {
 //         var firstHex = {};
 //         var secondHex = {};
@@ -172,13 +172,15 @@ function renderHexGrid(center, map, steps) {
 //         var translatedOffset = outsideCoord.offset * insideCoord.ring/outsideCoord.ring;
 //         if (insideCoord.offset === Math.floor(translatedOffset)) {
 //           // We have a match!
-//           // FIXME: Implement this.
-//           // `joinSide == sideNum(outsideCoord) + 4` ?
+//           var sideNum = getHexSideNum(insideCoord.ring, insideCoord.offset);
+//           var mergedSide = (sideNum + 4) % 6;
+//           mergeHexes(insideCoord, outsideCoord, mergedSide);
 //         }
 //         if (insideCoord.offset === Math.ceil(translatedOffset)) {
 //           // We have a match!
-//           // FIXME: Implement this.
-//           // `joinSide == sideNum(outsideCoord) + 3` ?
+//           var sideNum = getHexSideNum(outsideCoord.ring, outsideCoord.offset);
+//           var mergedSide = (sideNum + 3) % 6;
+//           mergeHexes(outsideCoord, insideCoord, mergedSide);
 //         }
 //       }
 //       else if(currRing - existingRing === -1) {
@@ -187,17 +189,21 @@ function renderHexGrid(center, map, steps) {
 //         var translatedOffset = outsideCoord.offset * insideCoord.ring/outsideCoord.ring;
 //         if (insideCoord.offset === Math.floor(translatedOffset)) {
 //           // We have a match!
-//           // FIXME: Implement this.
-//           // `joinSide == sideNum(outsideCoord) + 4` ?
+//           var sideNum = getHexSideNum(insideCoord.ring, insideCoord.offset);
+//           var mergedSide = (sideNum + 4) % 6;
+//           mergeHexes(insideCoord, outsideCoord, mergedSide);
 //         }
 //         if (insideCoord.offset === Math.ceil(translatedOffset)) {
 //           // We have a match!
-//           // FIXME: Implement this.
-//           // `joinSide == sideNum(outsideCoord) + 3` ?
+//           var sideNum = getHexSideNum(outsideCoord.ring, outsideCoord.offset);
+//           var mergedSide = (sideNum + 3) % 6;
+//           mergeHexes(outsideCoord, insideCoord, mergedSide);
 //         }
 //       }
 //     }
 //   }
+//
+//   return path;
 // }
 //
 // function mergeHexes(hex1, hex2, joiningSideNum) {
