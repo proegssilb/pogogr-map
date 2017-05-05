@@ -118,7 +118,9 @@ function renderRegion(map, center, steps, hexes, color, title) {
     text: title,
     position: new google.maps.LatLng(midLat, midLng),
     map: map,
-    fontSize: 16
+    fontSize: 16,
+    strokeWeight: 8,
+    minZoom: 10
   })
 }
 
