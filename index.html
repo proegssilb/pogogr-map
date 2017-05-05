@@ -15,6 +15,8 @@
   </div>
   <div id="mapDiv"></div>
   <script src="hexgrid.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?libraries=geometry&key=AIzaSyDORJiLwtjsICwo4Mho-sFr7pFUhj6uDnc"></script>
+  <script src="maplabel.js"></script>
   <script>
   var map;
   function initMap() {
@@ -30,7 +32,7 @@
       var mapCenter = new google.maps.LatLng(mapConfig.lat, mapConfig.long)
       renderHexGrid(mapCenter, map, mapConfig.steps);
       for (const regionConfig of mapConfig.regions) {
-        renderRegion(map, mapCenter, mapConfig.steps, regionConfig.hexes, regionConfig.color);
+        renderRegion(map, mapCenter, mapConfig.steps, regionConfig.hexes, regionConfig.color, regionConfig.name);
       }
 
       // Use the color property to style features
@@ -39,8 +41,9 @@
       });
     });
   }
+  // Doing it this way because dependencies between scripts above. Should be a work-around.
+  initMap();
   </script>
-  <script src="https://maps.googleapis.com/maps/api/js?libraries=geometry&key=AIzaSyDORJiLwtjsICwo4Mho-sFr7pFUhj6uDnc&callback=initMap"
-    async defer></script>
+
 </body>
 </html>
