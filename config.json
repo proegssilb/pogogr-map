@@ -167,6 +167,21 @@
             "minZoom": 10
           },
           "hexes": [{"ring": 5, "offset": 16}, {"ring": 5, "offset": 17}, {"ring": 6, "offset": 20}]
+        },
+		{
+          "name": "Walker",
+          "style": {
+            "fillColor": "#FDFE14",
+            "strokeWeight": 1,
+            "strokeColor": "#666666",
+            "strokeOpacity": 0.2
+          },
+          "textStyle": {
+            "fontSize": 16,
+            "strokeWeight": 8,
+            "minZoom": 10
+          },
+          "hexes": [{"ring": 2, "offset": 10}, {"ring": 3, "offset": 15}, {"ring": 3, "offset": 16}, {"ring": 4, "offset": 19}]
         }
       ]
     },
