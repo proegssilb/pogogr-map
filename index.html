@@ -23,27 +23,29 @@
     var config = fetch('config.json').then(function(response) {
       return response.json();
     }).then(function (config) {
-      var mapConfig = config.maps[0];
       var centerPnt = new google.maps.LatLng(config.center.lat, config.center.long);
       map = new google.maps.Map(document.getElementById('mapDiv'), {
         center: centerPnt,
         zoom: config.zoom
       });
-      var mapCenter = new google.maps.LatLng(mapConfig.lat, mapConfig.long)
-      renderHexGrid(mapCenter, map, mapConfig.steps, mapConfig.ringCount);
-      for (const regionConfig of mapConfig.regions) {
-        renderRegion(map, mapCenter, mapConfig.steps, regionConfig.hexes, regionConfig.color, regionConfig.name);
-      }
+      for (const mapConfig of config.maps)
+      {
+        var mapCenter = new google.maps.LatLng(mapConfig.lat, mapConfig.long)
+        renderHexGrid(mapCenter, map, mapConfig.steps, mapConfig.ringCount);
+        for (const regionConfig of mapConfig.regions) {
+          renderRegion(map, mapCenter, mapConfig.steps, regionConfig.hexes, regionConfig.color, regionConfig.name);
+        }
 
-      // Use the color property to style features
-      map.data.setStyle(function(feature) {
-        return {
-          fillColor: feature.getProperty('color'),
-          strokeWeight: 1,
-          strokeColor: '#666666',
-          strokeOpacity: 0.2
-        };
-      });
+        // Use the color property to style features
+        map.data.setStyle(function(feature) {
+          return {
+            fillColor: feature.getProperty('color'),
+            strokeWeight: 1,
+            strokeColor: '#666666',
+            strokeOpacity: 0.2
+          };
+        });
+      }
     });
   }
   // Doing it this way because dependencies between scripts above. Should be a work-around.
