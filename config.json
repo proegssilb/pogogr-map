@@ -191,7 +191,8 @@
             "strokeOpacity": 0.2
           },
           "hexes": [{"ring": 0, "offset": 0}, {"ring": 1, "offset": 0}, {"ring": 1, "offset": 1},
-            {"ring": 1, "offset": 2}, {"ring": 1, "offset": 3}, {"ring": 1, "offset": 4}, {"ring": 1, "offset": 5}]
+            {"ring": 1, "offset": 2}, {"ring": 1, "offset": 3}, {"ring": 1, "offset": 4}, {"ring": 1, "offset": 5},
+            {"ring": 2, "offset": 2}, {"ring": 2, "offset": 9}]
         }
       ]
     }
