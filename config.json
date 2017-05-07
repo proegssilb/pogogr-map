@@ -14,58 +14,158 @@
       "regions": [
         {
           "name": "Downtown GR",
-          "color": "#00FF22",
+          "textStyle": {
+            "fontSize": 16,
+            "strokeWeight": 8,
+            "minZoom": 10
+          },
+          "style": {
+            "fillColor": "#00FF22",
+            "strokeWeight": 1,
+            "strokeColor": "#666666",
+            "strokeOpacity": 0.2
+          },
           "hexes": [{"ring": 0, "offset": 0}, {"ring": 1, "offset": 0}, {"ring": 1, "offset": 1},
             {"ring": 1, "offset": 2}, {"ring": 1, "offset": 3}, {"ring": 1, "offset": 4}, {"ring": 1, "offset": 5},
             {"ring": 2, "offset": 0}, {"ring": 2, "offset": 11}]
         },
         {
           "name": "Wyoming",
-          "color": "#FFBB22",
+          "textStyle": {
+            "fontSize": 16,
+            "strokeWeight": 8,
+            "minZoom": 10
+          },
+          "style": {
+            "fillColor": "#FFBB22",
+            "strokeWeight": 1,
+            "strokeColor": "#666666",
+            "strokeOpacity": 0.2
+          },
           "hexes": [{"ring": 2, "offset": 7}, {"ring": 3, "offset": 10}, {"ring": 3, "offset": 11},
             {"ring": 4, "offset": 14}]
         },
         {
           "name": "Walker & Lamar Park",
-          "color": "#BBFF22",
+          "textStyle": {
+            "fontSize": 16,
+            "strokeWeight": 8,
+            "minZoom": 10
+          },
+          "style": {
+            "fillColor": "#BBFF22",
+            "strokeWeight": 1,
+            "strokeColor": "#666666",
+            "strokeOpacity": 0.2
+          },
           "hexes": [{"ring": 2, "offset": 8}, {"ring": 2, "offset": 9}, {"ring": 3, "offset": 13},
             {"ring": 3, "offset": 14}]
         },
         {
           "name": "The Don's Domain",
-          "color": "#FF6622",
+          "textStyle": {
+            "fontSize": 16,
+            "strokeWeight": 8,
+            "minZoom": 10
+          },
+          "style": {
+            "fillColor": "#FF6622",
+            "strokeWeight": 1,
+            "strokeColor": "#666666",
+            "strokeOpacity": 0.2
+          },
           "hexes": [{"ring": 4, "offset": 16}, {"ring": 4, "offset": 17}, {"ring": 5, "offset": 21},
             {"ring": 5, "offset": 22}]
         },
         {
           "name": "Musical Military",
-          "color": "#FF3322",
+          "textStyle": {
+            "fontSize": 16,
+            "strokeWeight": 8,
+            "minZoom": 10
+          },
+          "style": {
+            "fillColor": "#FF3322",
+            "strokeWeight": 1,
+            "strokeColor": "#666666",
+            "strokeOpacity": 0.2
+          },
           "hexes": [{"ring": 4, "offset": 18}]
         },
         {
           "name": "L33t Loop",
-          "color": "#FF1144",
+          "textStyle": {
+            "fontSize": 16,
+            "strokeWeight": 8,
+            "minZoom": 10
+          },
+          "style": {
+            "fillColor": "#FF1144",
+            "strokeWeight": 1,
+            "strokeColor": "#666666",
+            "strokeOpacity": 0.2
+          },
           "hexes": [{"ring": 3, "offset": 12}, {"ring": 4, "offset": 15}]
         },
         {
           "name": "Kentwood",
-          "color": "#1133DD",
+          "style": {
+            "fillColor": "#1133DD",
+            "strokeWeight": 1,
+            "strokeColor": "#666666",
+            "strokeOpacity": 0.2
+          },
+          "textStyle": {
+            "fontSize": 16,
+            "strokeWeight": 8,
+            "minZoom": 10
+          },
           "hexes": [{"ring": 2, "offset": 5}, {"ring": 2, "offset": 6}, {"ring": 3, "offset": 8},
             {"ring": 3, "offset": 9}]
         },
         {
           "name": "Ada Sightings",
-          "color": "#6622FF",
+          "style": {
+            "fillColor": "#6622FF",
+            "strokeWeight": 1,
+            "strokeColor": "#666666",
+            "strokeOpacity": 0.2
+          },
+          "textStyle": {
+            "fontSize": 16,
+            "strokeWeight": 8,
+            "minZoom": 10
+          },
           "hexes": [{"ring": 3, "offset": 4}, {"ring": 4, "offset": 5}, {"ring": 4, "offset": 6}]
         },
         {
           "name": "Ada Appearances",
-          "color": "#2266FF",
+          "style": {
+            "fillColor": "#2266FF",
+            "strokeWeight": 1,
+            "strokeColor": "#666666",
+            "strokeOpacity": 0.2
+          },
+          "textStyle": {
+            "fontSize": 16,
+            "strokeWeight": 8,
+            "minZoom": 10
+          },
           "hexes": [{"ring": 2, "offset": 3}, {"ring": 3, "offset": 5}, {"ring": 4, "offset": 7}]
         },
         {
           "name": "Byron Center",
-          "color": "#FDFE14",
+          "style": {
+            "fillColor": "#FDFE14",
+            "strokeWeight": 1,
+            "strokeColor": "#666666",
+            "strokeOpacity": 0.2
+          },
+          "textStyle": {
+            "fontSize": 16,
+            "strokeWeight": 8,
+            "minZoom": 10
+          },
           "hexes": [{"ring": 5, "offset": 16}, {"ring": 5, "offset": 17}, {"ring": 6, "offset": 20}]
         }
       ]
@@ -79,7 +179,17 @@
       "regions": [
         {
           "name": "Holland Scanner",
-          "color": "#EE3311",
+          "textStyle": {
+            "fontSize": 16,
+            "strokeWeight": 8,
+            "minZoom": 10
+          },
+          "style": {
+            "fillColor": "#EE3311",
+            "strokeWeight": 1,
+            "strokeColor": "#666666",
+            "strokeOpacity": 0.2
+          },
           "hexes": [{"ring": 0, "offset": 0}, {"ring": 1, "offset": 0}, {"ring": 1, "offset": 1},
             {"ring": 1, "offset": 2}, {"ring": 1, "offset": 3}, {"ring": 1, "offset": 4}, {"ring": 1, "offset": 5}]
         }

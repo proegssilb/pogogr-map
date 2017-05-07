@@ -101,27 +101,32 @@ function regionPath(center, steps, hexCoords) {
   });
 }
 
-function renderRegion(map, center, steps, hexes, color, title) {
+function renderRegion(map, center, steps, hexes, title, style, textStyle) {
   var locs = hexes.map(function(hex) {return hexGridIdToCoord(center, steps, hex.ring, hex.offset);});
-  //var path = locs.map(function(loc) {return getHex(loc, steps);});
   var path = regionPath(center, steps, hexes);
   var polys = path.map(function (hexPath) {return new google.maps.Data.Polygon([hexPath]);});
   map.data.add({
     id: title,
     geometry: new google.maps.Data.MultiPolygon(polys),
-    properties: {color: color}
+    properties: {style: style}
   });
 
   var midLat = locs.map(function(loc) {return loc.lat();}).reduce(function(a,b) {return a+b;}, 0)/locs.length;
   var midLng = locs.map(function(loc) {return loc.lng();}).reduce(function(a,b) {return a+b;}, 0)/locs.length;
-  var regionLabel = new MapLabel({
+  var regionLabelConfig = Object.assign(textStyle, {
     text: title,
     position: new google.maps.LatLng(midLat, midLng),
-    map: map,
-    fontSize: 16,
-    strokeWeight: 8,
-    minZoom: 10
-  })
+    map: map
+  });
+  // var regionLabel = new MapLabel({
+  //   text: title,
+  //   position: new google.maps.LatLng(midLat, midLng),
+  //   map: map,
+  //   fontSize: 16,
+  //   strokeWeight: 8,
+  //   minZoom: 10
+  // });
+  var regionLabel = new MapLabel(regionLabelConfig);
 }
 
 function renderHexGrid(center, map, steps, ringCount) {
@@ -129,7 +134,14 @@ function renderHexGrid(center, map, steps, ringCount) {
     const path = getHex(hexCenter, steps);
     map.data.add({
       geometry: new google.maps.Data.Polygon([path]),
-      properties: { color: '#222222' }
+      properties: {
+        style: {
+          fillColor: '#222222',
+          strokeWeight: 1,
+          strokeColor: '#666666',
+          strokeOpacity: 0.2
+        }
+      }
     });
   }
 }

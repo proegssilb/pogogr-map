@@ -33,17 +33,13 @@
         var mapCenter = new google.maps.LatLng(mapConfig.lat, mapConfig.long)
         renderHexGrid(mapCenter, map, mapConfig.steps, mapConfig.ringCount);
         for (const regionConfig of mapConfig.regions) {
-          renderRegion(map, mapCenter, mapConfig.steps, regionConfig.hexes, regionConfig.color, regionConfig.name);
+          renderRegion(map, mapCenter, mapConfig.steps, regionConfig.hexes, regionConfig.name,
+            regionConfig.style, regionConfig.textStyle);
         }
 
         // Use the color property to style features
         map.data.setStyle(function(feature) {
-          return {
-            fillColor: feature.getProperty('color'),
-            strokeWeight: 1,
-            strokeColor: '#666666',
-            strokeOpacity: 0.2
-          };
+          return feature.getProperty('style');
         });
       }
     });
