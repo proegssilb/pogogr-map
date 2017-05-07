@@ -105,11 +105,11 @@ function renderRegion(map, center, steps, hexes, color, title) {
   var locs = hexes.map(function(hex) {return hexGridIdToCoord(center, steps, hex.ring, hex.offset);});
   //var path = locs.map(function(loc) {return getHex(loc, steps);});
   var path = regionPath(center, steps, hexes);
-  path.forEach(function (hex) {
-    map.data.add({
-      geometry: new google.maps.Data.Polygon([hex]),
-      properties: {color: color}
-    });
+  var polys = path.map(function (hexPath) {return new google.maps.Data.Polygon([hexPath]);});
+  map.data.add({
+    id: title,
+    geometry: new google.maps.Data.MultiPolygon(polys),
+    properties: {color: color}
   });
 
   var midLat = locs.map(function(loc) {return loc.lat();}).reduce(function(a,b) {return a+b;}, 0)/locs.length;
