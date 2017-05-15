@@ -83,13 +83,19 @@ function getHexSideNum(ringNum, offset) {
 }
 
 function* hexGridCenters(center, steps, maxRings) {
-  yield center;
+  yield {gps: center, gridLoc: {ringNum: 0, offset: 0}};
   if (maxRings === 0) {
     return;
   }
   for (var ringNum = 1; ringNum <= maxRings; ringNum++) {
     for (var offset=0; offset < hexGridMaxOffset(ringNum); offset++) {
-      yield hexGridIdToCoord(center, steps, ringNum, offset);
+      yield {
+        gps: hexGridIdToCoord(center, steps, ringNum, offset),
+        gridLoc: {
+          ringNum: ringNum,
+          offset: offset
+        }
+      };
     }
   }
 }
@@ -118,110 +124,46 @@ function renderRegion(map, center, steps, hexes, title, style, textStyle) {
     position: new google.maps.LatLng(midLat, midLng),
     map: map
   });
-  // var regionLabel = new MapLabel({
-  //   text: title,
-  //   position: new google.maps.LatLng(midLat, midLng),
-  //   map: map,
-  //   fontSize: 16,
-  //   strokeWeight: 8,
-  //   minZoom: 10
-  // });
   var regionLabel = new MapLabel(regionLabelConfig);
 }
 
+var infoBox = undefined;
+
 function renderHexGrid(center, map, steps, ringCount) {
-  for(const hexCenter of hexGridCenters(center, steps, ringCount)) {
+  if (infoBox === undefined) {
+    infoBox = new google.maps.InfoWindow({});
+  }
+  for(const centerInfo of hexGridCenters(center, steps, ringCount)) {
+    const hexCenter = centerInfo.gps;
     const path = getHex(hexCenter, steps);
+    var poly = new google.maps.Data.Polygon([path]);
     map.data.add({
-      geometry: new google.maps.Data.Polygon([path]),
+      geometry: poly,
       properties: {
         style: {
           fillColor: '#222222',
           strokeWeight: 1,
           strokeColor: '#666666',
           strokeOpacity: 0.2
-        }
+        },
+        gps: hexCenter,
+        gridLoc: centerInfo.gridLoc
       }
     });
   }
+  map.data.addListener('click', function (event) {
+    console.log('Event handler fired.');
+    infoBox.close()
+    const feature = event.feature;
+    const hexCenter = feature.getProperty('gps');
+    const gridLoc = feature.getProperty('gridLoc');
+    if (hexCenter === undefined || gridLoc === undefined) {
+      return;
+    }
+    const content = "<div><p><b>GPS:</b> " + hexCenter.lat() + ", " + hexCenter.lng() + "</p>" +
+                    "<p><b>Config Coords:</b> " + JSON.stringify(gridLoc) + "</p></div>";
+    infoBox.setContent(content);
+    infoBox.setPosition(hexCenter);
+    infoBox.open(map);
+  });
 }
-
-// function regionPath(center, steps, hexCoords) {
-//   var path = [];
-//   for (const hexCoord of hexCoords) {
-//     if (path.length === 0) {
-//       path.push(Object.assign(hexCoord, {sides:[0,1,2,3,4,5]}));
-//       continue;
-//     }
-//     var currRing = hexCoord.ring;
-//     for (const existingCoord of path) {
-//       existingRing = existingCoord.ring;
-//       // We need these for 2+ branches of the if-else block below.
-//       var insideCoord = {};
-//       var outsideCoord = {};
-//       filledHexCoord = Object.assign(hexCoord, {sides:[0,1,2,3,4,5]});
-//       if(currRing === existingRing) {
-//         var firstHex = {};
-//         var secondHex = {};
-//         if (existingCoord.offset === hexCoord.offset) {
-//           // Duplicate entry.
-//           break;
-//         }
-//         else if (existingCoord.offset < hexCoord.offset) {
-//           firstHex = existingCoord;
-//           secondHex = filledHexCoord;
-//         } else {
-//           firstHex = filledHexCoord;
-//           secondHex = existingCoord;
-//         }
-//         var firstHexSide = getHexSideNum(firstHex.ring, firstHex.offset);
-//         var joinSide = firstHexSide + 2;  // I leave the proof of this as an exercise to the reader.
-//         doHexJoin(firstHex, secondHex, joinSide);
-//         path.push(secondHex);
-//       }
-//       // These blocks are kind of not DRY, but there's a matrix effect going on.
-//       else if(currRing - existingRing === 1) {
-//         var outsideCoord = filledHexCoord;
-//         var insideCoord = existingCoord;
-//         var translatedOffset = outsideCoord.offset * insideCoord.ring/outsideCoord.ring;
-//         if (insideCoord.offset === Math.floor(translatedOffset)) {
-//           // We have a match!
-//           var sideNum = getHexSideNum(insideCoord.ring, insideCoord.offset);
-//           var mergedSide = (sideNum + 4) % 6;
-//           mergeHexes(insideCoord, outsideCoord, mergedSide);
-//         }
-//         if (insideCoord.offset === Math.ceil(translatedOffset)) {
-//           // We have a match!
-//           var sideNum = getHexSideNum(outsideCoord.ring, outsideCoord.offset);
-//           var mergedSide = (sideNum + 3) % 6;
-//           mergeHexes(outsideCoord, insideCoord, mergedSide);
-//         }
-//       }
-//       else if(currRing - existingRing === -1) {
-//         var insideCoord = filledHexCoord;
-//         var outsideCoord = existingCoord;
-//         var translatedOffset = outsideCoord.offset * insideCoord.ring/outsideCoord.ring;
-//         if (insideCoord.offset === Math.floor(translatedOffset)) {
-//           // We have a match!
-//           var sideNum = getHexSideNum(insideCoord.ring, insideCoord.offset);
-//           var mergedSide = (sideNum + 4) % 6;
-//           mergeHexes(insideCoord, outsideCoord, mergedSide);
-//         }
-//         if (insideCoord.offset === Math.ceil(translatedOffset)) {
-//           // We have a match!
-//           var sideNum = getHexSideNum(outsideCoord.ring, outsideCoord.offset);
-//           var mergedSide = (sideNum + 3) % 6;
-//           mergeHexes(outsideCoord, insideCoord, mergedSide);
-//         }
-//       }
-//     }
-//   }
-//
-//   return path;
-// }
-//
-// function mergeHexes(hex1, hex2, joiningSideNum) {
-//   hex1.sides.splice(hex1.sides.indexOf(joiningSideNum), 1)
-//   const altJoiningSideNum = (joiningSideNum + 3) % 6
-//   hex2.sides.splice(hex2.sides.indexOf(altJoiningSideNum), 1)
-// }
