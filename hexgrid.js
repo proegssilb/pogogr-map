@@ -1,20 +1,23 @@
 var scanRadius=70;
 
-function distanceBetweenHexes(steps) {
-  var radius = getRadius(steps);
-  return radius * 2 - hexOverlap;
-}
-
 function getRadius(steps) {
   return ((steps - 1) * Math.sqrt(3) * scanRadius) + scanRadius;
 }
 
-function getNextCenter(currentCenter, heading, steps) {
+function getNextCenter(currentCenter, steps, heading, numHexes) {
+  // Only works for headings 0, 60, 120, ...
   var radius = getRadius(steps);
   var corner1 = google.maps.geometry.spherical.computeOffset(currentCenter, radius, heading + 30);
   var corner2 = google.maps.geometry.spherical.computeOffset(currentCenter, radius, heading - 30);
   var midpoint = google.maps.geometry.spherical.interpolate(corner1, corner2, 0.5);
-  return google.maps.geometry.spherical.interpolate(currentCenter, midpoint, 2.0);
+  return google.maps.geometry.spherical.interpolate(currentCenter, midpoint, 2.0*numHexes);
+}
+
+function getCenterToCenterDistance(steps, numHexes) {
+  // only works on continuous face-to-face hex lines.
+  const scalar = 1.154697265625; // This is a very close guess. Can't tell if low or high.
+  const radius = getRadius(steps);
+  return numHexes * 2 * radius / scalar;
 }
 
 function getHex(center, steps) {
@@ -57,25 +60,22 @@ function hexGridIdToCoord(center, steps, ringNum, offset) {
   if (ringNum === 0) {
     return center;
   }
-  // Hybrid iterative/explicit; follow a spoke, then the ring's edge.
+  // Two-step "explicit"; follow a spoke, then the ring's edge, using jumps.
 
   // Find the right spoke...
-  var sideNum = getHexSideNum(ringNum, offset);
-  var spokeAngle = sideNum*60;
-  // Follow the spoke...
-  var edgeStart = center;
-  for(var i=0; i < ringNum; i++) {
-    edgeStart = getNextCenter(edgeStart, spokeAngle, steps);
-  }
+  const sideNum = getHexSideNum(ringNum, offset);
+  const spokeAngle = sideNum*60;
+  // Translate along the spoke...
+  //var spokePoint = getNextCenter(center, steps, spokeAngle, ringNum);
+  const spokeDistance = getCenterToCenterDistance(steps, ringNum);
+  var spokePoint = google.maps.geometry.spherical.computeOffset(center, spokeDistance, spokeAngle);
 
-  // Follow the edge...
-  var edgeAngle = spokeAngle+120;
-  // If ring 2, offset 2, don't translate from edge at all.
-  var hexLoc = edgeStart;
-  for(var j=0; j < (offset%ringNum); j++) {
-    hexLoc = getNextCenter(hexLoc, edgeAngle, steps);
-  }
-  return hexLoc;
+  // Translate along the edge. The number of hexes to go is empirically derived.
+  //return getNextCenter(spokePoint, steps, edgeAngle, offset%ringNum);
+  const edgeAngleAdjustment = [0, .2, .2, 0, -.2, -.2]
+  const edgeAngle = spokeAngle + 120 + edgeAngleAdjustment[sideNum];
+  const edgeDistance = getCenterToCenterDistance(steps, offset%ringNum);
+  return google.maps.geometry.spherical.computeOffset(spokePoint, edgeDistance, edgeAngle);
 }
 
 function getHexSideNum(ringNum, offset) {
