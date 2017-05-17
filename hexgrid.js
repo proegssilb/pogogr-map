@@ -111,12 +111,6 @@ function renderRegion(map, center, steps, hexes, title, style, textStyle) {
   var locs = hexes.map(function(hex) {return hexGridIdToCoord(center, steps, hex.ring, hex.offset);});
   var path = regionPath(center, steps, hexes);
   var polys = path.map(function (hexPath) {return new google.maps.Data.Polygon([hexPath]);});
-  map.data.add({
-    id: title,
-    geometry: new google.maps.Data.MultiPolygon(polys),
-    properties: {style: style}
-  });
-
   var midLat = locs.map(function(loc) {return loc.lat();}).reduce(function(a,b) {return a+b;}, 0)/locs.length;
   var midLng = locs.map(function(loc) {return loc.lng();}).reduce(function(a,b) {return a+b;}, 0)/locs.length;
   var regionLabelConfig = Object.assign(textStyle, {
@@ -125,6 +119,11 @@ function renderRegion(map, center, steps, hexes, title, style, textStyle) {
     map: map
   });
   var regionLabel = new MapLabel(regionLabelConfig);
+  map.data.add({
+    id: title,
+    geometry: new google.maps.Data.MultiPolygon(polys),
+    properties: {style: style, label: regionLabel}
+  });
 }
 
 var infoBox = undefined;

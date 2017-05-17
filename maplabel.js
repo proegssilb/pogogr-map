@@ -1,3 +1,5 @@
+// From https://github.com/googlemaps/v3-utility-library
+
 /**
  * @license
  *

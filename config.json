@@ -4,6 +4,10 @@
     "long": -85.65021336078644
   },
   "zoom": 11,
+  "checkboxes":{
+    "dtowngr-rare": "#rare_notifications",
+    "dtowngr-omg": "#omgrarepokemon"
+  },
   "maps": [
     {
       "name": "Greater Grand Rapids",
@@ -12,6 +16,44 @@
       "steps": 19,
       "ringCount": 7,
       "regions": [
+        {
+          "name": "#rare_notifications",
+          "checkboxKey": "dtowngr-rare",
+          "textStyle": {
+            "fontSize": 16,
+            "strokeWeight": 6,
+            "minZoom": 10
+          },
+          "style": {
+            "fillColor": "#FFFFFF",
+            "strokeColor": "#000000",
+            "strokeWeight": 3,
+            "strokeOpacity": 0.2,
+            "fillOpacity": 0
+          },
+          "hexes": [{"ring": 0, "offset": 0}, {"ring": 1, "offset": 0}, {"ring": 1, "offset": 1},
+            {"ring": 1, "offset": 2}, {"ring": 1, "offset": 3}, {"ring": 1, "offset": 4}, {"ring": 1, "offset": 5},
+            {"ring": 2, "offset": 0}, {"ring": 2, "offset": 11}]
+        },
+        {
+          "name": "#omgrarepokemon",
+          "checkboxKey": "dtowngr-omg",
+          "textStyle": {
+            "fontSize": 16,
+            "strokeWeight": 6,
+            "minZoom": 10
+          },
+          "style": {
+            "fillColor": "#FFFFFF",
+            "strokeColor": "#FF0000",
+            "strokeWeight": 3,
+            "strokeOpacity": 0.2,
+            "fillOpacity": 0
+          },
+          "hexes": [{"ring": 0, "offset": 0}, {"ring": 1, "offset": 0}, {"ring": 1, "offset": 1},
+            {"ring": 1, "offset": 2}, {"ring": 1, "offset": 3}, {"ring": 1, "offset": 4}, {"ring": 1, "offset": 5},
+            {"ring": 2, "offset": 0}, {"ring": 2, "offset": 11}]
+        },
         {
           "name": "Downtown GR",
           "textStyle": {
