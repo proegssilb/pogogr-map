@@ -98,22 +98,6 @@
             {"ring": 4, "offset": 14}]
         },
         {
-          "name": "Walker & Lamar Park",
-          "textStyle": {
-            "fontSize": 16,
-            "strokeWeight": 8,
-            "minZoom": 10
-          },
-          "style": {
-            "fillColor": "#BBFF22",
-            "strokeWeight": 1,
-            "strokeColor": "#666666",
-            "strokeOpacity": 0.2
-          },
-          "hexes": [{"ring": 2, "offset": 8}, {"ring": 2, "offset": 9}, {"ring": 3, "offset": 13},
-            {"ring": 3, "offset": 14}]
-        },
-        {
           "name": "The Don's Domain",
           "textStyle": {
             "fontSize": 16,
