@@ -236,7 +236,8 @@
             "strokeWeight": 8,
             "minZoom": 10
           },
-          "hexes": [{"ring": 5, "offset": 16}, {"ring": 5, "offset": 17}, {"ring": 6, "offset": 20}]
+          "hexes": [{"ring": 5, "offset": 16}, {"ring": 5, "offset": 17}, {"ring": 6, "offset": 20},
+            {"ring": 5, "offset": 19}]
         },
         {
           "name": "#byroncenter_rare",
@@ -253,9 +254,28 @@
             "strokeOpacity": 0.2,
             "fillOpacity": 0
           },
-          "hexes": [{"ring": 5, "offset": 16}, {"ring": 5, "offset": 17}, {"ring": 6, "offset": 20}]
+          "hexes": [{"ring": 5, "offset": 16}, {"ring": 5, "offset": 17}, {"ring": 6, "offset": 20},
+            {"ring": 5, "offset": 19}]
         },
-		{
+        {
+          "name": "#byroncenter_rare",
+          "checkboxKey": "bc-rare",
+          "textStyle": {
+            "fontSize": 16,
+            "strokeWeight": 6,
+            "minZoom": 10
+          },
+          "style": {
+            "fillColor": "#FFFFFF",
+            "strokeColor": "#000000",
+            "strokeWeight": 3,
+            "strokeOpacity": 0.2,
+            "fillOpacity": 0
+          },
+          "hexes": [{"ring": 5, "offset": 16}, {"ring": 5, "offset": 17}, {"ring": 6, "offset": 20},
+            {"ring": 5, "offset": 19}]
+        },
+	      {
           "name": "Walker",
           "style": {
             "fillColor": "#FDFE14",
