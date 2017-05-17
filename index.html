@@ -13,14 +13,16 @@
       <a class="fork-me-link" href="https://github.com/proegssilb/pogogr-map"><span class="fork-me-text">A Github Project</span></a>
     </div>
   </div>
+  <div id="checkboxList"></div>
   <div id="mapDiv"></div>
   <script src="hexgrid.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?libraries=geometry&key=AIzaSyDORJiLwtjsICwo4Mho-sFr7pFUhj6uDnc"></script>
   <script src="maplabel.js"></script>
   <script>
   var map;
+  var appConfig;
   function initMap() {
-    var config = fetch('config.json').then(function(response) {
+    appConfig = fetch('config.json').then(function(response) {
       return response.json();
     }).then(function (config) {
       var centerPnt = new google.maps.LatLng(config.center.lat, config.center.long);
@@ -36,16 +38,73 @@
           renderRegion(map, mapCenter, mapConfig.steps, regionConfig.hexes, regionConfig.name,
             regionConfig.style, regionConfig.textStyle);
         }
-
-        // Use the color property to style features
-        map.data.setStyle(function(feature) {
-          return feature.getProperty('style');
-        });
       }
+      // Use the 'style' property to style features
+      map.data.setStyle(function(feature) {
+        return feature.getProperty('style');
+      });
+      return config;
     });
   }
-  // Doing it this way because dependencies between scripts above. Should be a work-around.
+  // Doing it this way because dependencies between scripts above. Should be a work-around, don't know it.
   initMap();
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js"></script>
+  <script>
+  var checkboxControls = {};
+  function handleClick(evt) {
+    var zaptoElem = evt.data;
+    if(zaptoElem.prop('checked')) {
+      // Show corresponding regions.
+      for (const feature of checkboxControls[zaptoElem.data('key')]) {
+        showFeature(feature);
+      }
+    } else {
+      // Hide corresponding regions.
+      for (const feature of checkboxControls[zaptoElem.data('key')]) {
+        hideFeature(feature);
+      }
+    }
+  }
+
+  function hideFeature(feature) {
+    map.data.remove(feature);
+    var label = feature.getProperty('label');
+    label.setMap(null);
+  }
+
+  function showFeature(feature) {
+    map.data.add(feature);
+    var label = feature.getProperty('label');
+    label.setMap(map);
+  }
+
+  function initCheckboxes(config) {
+    for (const mapConf of config.maps) {
+      for (const regionConf of mapConf.regions) {
+        if(regionConf.checkboxKey !== undefined) {
+          // Add region to checkbox-region dict, so we can show/hide later
+          regionList = checkboxControls[regionConf.checkboxKey] || []
+          var feature = map.data.getFeatureById(regionConf.name)
+          regionList.push(feature);
+          checkboxControls[regionConf.checkboxKey] = regionList;
+          hideFeature(feature);
+
+          // Create checkbox if not already there.
+          if($('#ckbx' + regionConf.checkboxKey).length === 0) {
+            var ckbx = $('<input type="checkbox" id="ckbx'+regionConf.checkboxKey+'">');
+            ckbx.data('key', regionConf.checkboxKey);
+            var lbl = $('<label for="'+ckbx.attr('id')+'">' + config.checkboxes[regionConf.checkboxKey] + '</label>');
+            $('#checkboxList').append(ckbx);
+            $('#checkboxList').append(lbl);
+            ckbx.on('click', ckbx, handleClick);
+          }
+        }
+      }
+    }
+  }
+
+  appConfig.then(initCheckboxes);
   </script>
 
 </body>
