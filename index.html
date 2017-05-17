@@ -97,6 +97,7 @@
             var lbl = $('<label for="'+ckbx.attr('id')+'">' + config.checkboxes[regionConf.checkboxKey] + '</label>');
             $('#checkboxList').append(ckbx);
             $('#checkboxList').append(lbl);
+            $('#checkboxList').append('<br>');
             ckbx.on('click', ckbx, handleClick);
           }
         }

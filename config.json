@@ -6,7 +6,9 @@
   "zoom": 11,
   "checkboxes":{
     "dtowngr-rare": "#rare_notifications",
-    "dtowngr-omg": "#omgrarepokemon"
+    "dtowngr-omg": "#omgrarepokemon",
+    "ada-rare": "#ada_rare",
+    "bc-rare": "#byroncenter_rare"
   },
   "maps": [
     {
@@ -204,6 +206,24 @@
           "hexes": [{"ring": 2, "offset": 3}, {"ring": 3, "offset": 5}, {"ring": 4, "offset": 7}]
         },
         {
+          "name": "#ada_rare",
+          "checkboxKey": "ada-rare",
+          "textStyle": {
+            "fontSize": 16,
+            "strokeWeight": 6,
+            "minZoom": 10
+          },
+          "style": {
+            "fillColor": "#FFFFFF",
+            "strokeColor": "#000000",
+            "strokeWeight": 3,
+            "strokeOpacity": 0.2,
+            "fillOpacity": 0
+          },
+          "hexes": [{"ring": 3, "offset": 4}, {"ring": 4, "offset": 5}, {"ring": 4, "offset": 6},
+            {"ring": 2, "offset": 3}, {"ring": 3, "offset": 5}, {"ring": 4, "offset": 7}]
+        },
+        {
           "name": "Byron Center",
           "style": {
             "fillColor": "#FDFE14",
@@ -216,9 +236,46 @@
             "strokeWeight": 8,
             "minZoom": 10
           },
-          "hexes": [{"ring": 5, "offset": 16}, {"ring": 5, "offset": 17}, {"ring": 6, "offset": 20}]
+          "hexes": [{"ring": 5, "offset": 16}, {"ring": 5, "offset": 17}, {"ring": 6, "offset": 20},
+            {"ring": 5, "offset": 19}]
         },
-		{
+        {
+          "name": "#byroncenter_rare",
+          "checkboxKey": "bc-rare",
+          "textStyle": {
+            "fontSize": 16,
+            "strokeWeight": 6,
+            "minZoom": 10
+          },
+          "style": {
+            "fillColor": "#FFFFFF",
+            "strokeColor": "#000000",
+            "strokeWeight": 3,
+            "strokeOpacity": 0.2,
+            "fillOpacity": 0
+          },
+          "hexes": [{"ring": 5, "offset": 16}, {"ring": 5, "offset": 17}, {"ring": 6, "offset": 20},
+            {"ring": 5, "offset": 19}]
+        },
+        {
+          "name": "#byroncenter_rare",
+          "checkboxKey": "bc-rare",
+          "textStyle": {
+            "fontSize": 16,
+            "strokeWeight": 6,
+            "minZoom": 10
+          },
+          "style": {
+            "fillColor": "#FFFFFF",
+            "strokeColor": "#000000",
+            "strokeWeight": 3,
+            "strokeOpacity": 0.2,
+            "fillOpacity": 0
+          },
+          "hexes": [{"ring": 5, "offset": 16}, {"ring": 5, "offset": 17}, {"ring": 6, "offset": 20},
+            {"ring": 5, "offset": 19}]
+        },
+	      {
           "name": "Walker",
           "style": {
             "fillColor": "#FDFE14",
