@@ -92,7 +92,7 @@ function* hexGridCenters(center, steps, maxRings) {
       yield {
         gps: hexGridIdToCoord(center, steps, ringNum, offset),
         gridLoc: {
-          ringNum: ringNum,
+          ring: ringNum,
           offset: offset
         }
       };
@@ -151,7 +151,6 @@ function renderHexGrid(center, map, steps, ringCount) {
     });
   }
   map.data.addListener('click', function (event) {
-    console.log('Event handler fired.');
     infoBox.close()
     const feature = event.feature;
     const hexCenter = feature.getProperty('gps');
