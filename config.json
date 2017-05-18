@@ -7,7 +7,11 @@
   "checkboxes":{
     "dtowngr-rare": "#rare_notifications",
     "dtowngr-omg": "#omgrarepokemon",
+    "wyoming-rare": "#wyoming_rare",
+    "kentwood-rare": "#kentwood_rare",
     "ada-rare": "#ada_rare",
+    "walker-rare": "#walker_rare",
+    "jnsngrndvllhudsvll-rare": "#jnsngrndvllhudsvll_rare",
     "bc-rare": "#byroncenter_rare"
   },
   "maps": [
@@ -62,7 +66,7 @@
             {"ring": 4, "offset": 18}, {"ring": 3, "offset": 12}, {"ring": 4, "offset": 15}, {"ring": 2, "offset": 5},
             {"ring": 2, "offset": 6}, {"ring": 3, "offset": 8}, {"ring": 3, "offset": 9}, {"ring": 5, "offset": 16},
             {"ring": 5, "offset": 17}, {"ring": 6, "offset": 20}, {"ring": 2, "offset": 10}, {"ring": 3, "offset": 15},
-            {"ring": 3, "offset": 16}, {"ring": 4, "offset": 19}]
+            {"ring": 3, "offset": 16}, {"ring": 4, "offset": 19}, {"ring": 5, "offset": 18}]
         },
         {
           "name": "Downtown GR",
@@ -97,8 +101,26 @@
           "hexes": [{"ring": 2, "offset": 7}, {"ring": 3, "offset": 10}, {"ring": 3, "offset": 11},
             {"ring": 4, "offset": 14}]
         },
-        {
-          "name": "Walker & Lamar Park",
+		{
+          "name": "#wyoming_rare",
+          "checkboxKey": "wyoming-rare",
+          "textStyle": {
+            "fontSize": 16,
+            "strokeWeight": 6,
+            "minZoom": 10
+          },
+          "style": {
+            "fillColor": "#FFFFFF",
+            "strokeColor": "#00000",
+            "strokeWeight": 3,
+            "strokeOpacity": 0.2,
+            "fillOpacity": 0
+          },
+		  "hexes": [{"ring": 2, "offset": 7}, {"ring": 3, "offset": 10}, {"ring": 3, "offset": 11},
+            {"ring": 4, "offset": 14}]
+        },
+		{
+          "name": "Walker",
           "textStyle": {
             "fontSize": 16,
             "strokeWeight": 8,
@@ -110,8 +132,28 @@
             "strokeColor": "#666666",
             "strokeOpacity": 0.2
           },
-          "hexes": [{"ring": 2, "offset": 8}, {"ring": 2, "offset": 9}, {"ring": 3, "offset": 13},
-            {"ring": 3, "offset": 14}]
+          "hexes": [{"ring": 2, "offset": 8}, {"ring": 2, "offset": 9}, {"ring": 2, "offset": 10}, 
+		  {"ring": 3, "offset": 13}, {"ring": 3, "offset": 14}, {"ring": 3, "offset": 15}, {"ring": 3, "offset": 16}, 
+		  {"ring": 4, "offset": 19}]
+        },
+		{
+          "name": "#walker_rare",
+          "checkboxKey": "walker-rare",
+          "textStyle": {
+            "fontSize": 16,
+            "strokeWeight": 6,
+            "minZoom": 10
+          },
+          "style": {
+            "fillColor": "#FFFFFF",
+            "strokeColor": "#00000",
+            "strokeWeight": 3,
+            "strokeOpacity": 0.2,
+            "fillOpacity": 0
+          },
+		  "hexes": [{"ring": 2, "offset": 8}, {"ring": 2, "offset": 9}, {"ring": 2, "offset": 10}, 
+		  {"ring": 3, "offset": 13}, {"ring": 3, "offset": 14}, {"ring": 3, "offset": 15}, {"ring": 3, "offset": 16}, 
+		  {"ring": 4, "offset": 19}]
         },
         {
           "name": "The Don's Domain",
@@ -159,6 +201,24 @@
           },
           "hexes": [{"ring": 3, "offset": 12}, {"ring": 4, "offset": 15}]
         },
+		{
+          "name": "#jnsngrndvllhudsvll_rare",
+          "checkboxKey": "jnsngrndvllhudsvll-rare",
+          "textStyle": {
+            "fontSize": 16,
+            "strokeWeight": 6,
+            "minZoom": 10
+          },
+          "style": {
+            "fillColor": "#FFFFFF",
+            "strokeColor": "#000000",
+            "strokeWeight": 3,
+            "strokeOpacity": 0.2,
+            "fillOpacity": 0
+          },
+          "hexes": [{"ring": 4, "offset": 16}, {"ring": 4, "offset": 17}, {"ring": 5, "offset": 21},
+            {"ring": 5, "offset": 22}, {"ring": 4, "offset": 18}, {"ring": 3, "offset": 12}, {"ring": 4, "offset": 15}]
+        },
         {
           "name": "Kentwood",
           "style": {
@@ -173,6 +233,24 @@
             "minZoom": 10
           },
           "hexes": [{"ring": 2, "offset": 5}, {"ring": 2, "offset": 6}, {"ring": 3, "offset": 8},
+            {"ring": 3, "offset": 9}]
+        },
+		{
+          "name": "#kentwood_rare",
+          "checkboxKey": "kentwood-rare",
+          "textStyle": {
+            "fontSize": 16,
+            "strokeWeight": 6,
+            "minZoom": 10
+          },
+          "style": {
+            "fillColor": "#FFFFFF",
+            "strokeColor": "#00000",
+            "strokeWeight": 3,
+            "strokeOpacity": 0.2,
+            "fillOpacity": 0
+          },
+		  "hexes": [{"ring": 2, "offset": 5}, {"ring": 2, "offset": 6}, {"ring": 3, "offset": 8},
             {"ring": 3, "offset": 9}]
         },
         {
@@ -237,7 +315,7 @@
             "minZoom": 10
           },
           "hexes": [{"ring": 5, "offset": 16}, {"ring": 5, "offset": 17}, {"ring": 6, "offset": 20},
-            {"ring": 5, "offset": 19}]
+            {"ring": 5, "offset": 18}]
         },
         {
           "name": "#byroncenter_rare",
@@ -255,40 +333,7 @@
             "fillOpacity": 0
           },
           "hexes": [{"ring": 5, "offset": 16}, {"ring": 5, "offset": 17}, {"ring": 6, "offset": 20},
-            {"ring": 5, "offset": 19}]
-        },
-        {
-          "name": "#byroncenter_rare",
-          "checkboxKey": "bc-rare",
-          "textStyle": {
-            "fontSize": 16,
-            "strokeWeight": 6,
-            "minZoom": 10
-          },
-          "style": {
-            "fillColor": "#FFFFFF",
-            "strokeColor": "#000000",
-            "strokeWeight": 3,
-            "strokeOpacity": 0.2,
-            "fillOpacity": 0
-          },
-          "hexes": [{"ring": 5, "offset": 16}, {"ring": 5, "offset": 17}, {"ring": 6, "offset": 20},
-            {"ring": 5, "offset": 19}]
-        },
-	      {
-          "name": "Walker",
-          "style": {
-            "fillColor": "#FDFE14",
-            "strokeWeight": 1,
-            "strokeColor": "#666666",
-            "strokeOpacity": 0.2
-          },
-          "textStyle": {
-            "fontSize": 16,
-            "strokeWeight": 8,
-            "minZoom": 10
-          },
-          "hexes": [{"ring": 2, "offset": 10}, {"ring": 3, "offset": 15}, {"ring": 3, "offset": 16}, {"ring": 4, "offset": 19}]
+            {"ring": 5, "offset": 18}]
         }
       ]
     },
