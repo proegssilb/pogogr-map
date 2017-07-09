@@ -124,6 +124,7 @@ function renderRegion(map, center, steps, hexes, title, style, textStyle) {
     geometry: new google.maps.Data.MultiPolygon(polys),
     properties: {style: style, label: regionLabel}
   });
+  console.log(title+"="+locs);
 }
 
 var infoBox = undefined;
