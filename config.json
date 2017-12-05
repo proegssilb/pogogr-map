@@ -11,7 +11,7 @@
     "kentwood-rare": "#kentwood_rare",
     "ada-rare": "#ada_rare",
     "walker-rare": "#walker_rare",
-    "jnsngrndvllhudsvll-rare": "#jnsngrndvllhudsvll_rare",
+    "jnsngrndvllhudsvll-rare": "#jengrdvilhdsnvil_rare",
     "bc-rare": "#byroncenter_rare",
     "holzeel-rare": "#hollandzeeland_rare",
     "holzeel-omg": "#omg_hollandzeeland"
@@ -159,38 +159,7 @@
                     {"ring": 4, "offset": 19}]
         },
         {
-          "name": "The Don's Domain",
-          "textStyle": {
-            "fontSize": 16,
-            "strokeWeight": 8,
-            "minZoom": 10
-          },
-          "style": {
-            "fillColor": "#FF6622",
-            "strokeWeight": 1,
-            "strokeColor": "#666666",
-            "strokeOpacity": 0.2
-          },
-          "hexes": [{"ring": 4, "offset": 16}, {"ring": 4, "offset": 17}, {"ring": 5, "offset": 21},
-            {"ring": 5, "offset": 22}, {"ring":5,"offset":20}]
-        },
-        {
-          "name": "Musical Military",
-          "textStyle": {
-            "fontSize": 16,
-            "strokeWeight": 8,
-            "minZoom": 10
-          },
-          "style": {
-            "fillColor": "#FF3322",
-            "strokeWeight": 1,
-            "strokeColor": "#666666",
-            "strokeOpacity": 0.2
-          },
-          "hexes": [{"ring": 4, "offset": 18}]
-        },
-        {
-          "name": "L33t Loop",
+          "name": "Jenison",
           "textStyle": {
             "fontSize": 16,
             "strokeWeight": 8,
@@ -202,10 +171,11 @@
             "strokeColor": "#666666",
             "strokeOpacity": 0.2
           },
-          "hexes": [{"ring": 3, "offset": 12}, {"ring": 4, "offset": 15}]
+          "hexes": [{"ring": 3, "offset": 12}, {"ring": 4, "offset": 15}, {"ring": 4, "offset": 16},
+                    {"ring": 5, "offset": 20},{"ring": 5, "offset": 21}]
         },
         {
-          "name": "#jnsngrndvllhudsvll_rare",
+          "name": "#jengrdvilhdsnvil_rare",
           "checkboxKey": "jnsngrndvllhudsvll-rare",
           "textStyle": {
             "fontSize": 16,
@@ -219,9 +189,8 @@
             "strokeOpacity": 0.2,
             "fillOpacity": 0
           },
-          "hexes": [{"ring": 4, "offset": 16}, {"ring": 4, "offset": 17}, {"ring": 5, "offset": 21},
-    		{"ring": 5, "offset": 22}, {"ring": 4, "offset": 18}, {"ring": 3, "offset": 12}, {"ring": 4, "offset": 15},
-	   	{"ring":5,"offset":20}]
+          "hexes": [{"ring": 3, "offset": 12}, {"ring": 4, "offset": 15}, {"ring": 4, "offset": 16},
+                    {"ring": 5, "offset": 20},{"ring": 5, "offset": 21}]
         },
         {
           "name": "Kentwood",
@@ -258,7 +227,7 @@
           	{"ring": 3, "offset": 9}]
         },
         {
-          "name": "Ada Sightings",
+          "name": "Ada",
           "style": {
             "fillColor": "#6622FF",
             "strokeWeight": 1,
@@ -270,22 +239,8 @@
             "strokeWeight": 8,
             "minZoom": 10
           },
-          "hexes": [{"ring": 3, "offset": 4}, {"ring": 4, "offset": 5}, {"ring": 4, "offset": 6}]
-        },
-        {
-          "name": "Ada Appearances",
-          "style": {
-            "fillColor": "#2266FF",
-            "strokeWeight": 1,
-            "strokeColor": "#666666",
-            "strokeOpacity": 0.2
-          },
-          "textStyle": {
-            "fontSize": 16,
-            "strokeWeight": 8,
-            "minZoom": 10
-          },
-          "hexes": [{"ring": 2, "offset": 3}, {"ring": 3, "offset": 5}, {"ring": 4, "offset": 7}]
+          "hexes": [{"ring": 3, "offset": 4}, {"ring": 4, "offset": 5}, {"ring": 4, "offset": 6}, 
+                    {"ring": 4, "offset": 7}]
         },
         {
           "name": "#ada_rare",
@@ -302,8 +257,8 @@
             "strokeOpacity": 0.2,
             "fillOpacity": 0
           },
-          "hexes": [{"ring": 3, "offset": 4}, {"ring": 4, "offset": 5}, {"ring": 4, "offset": 6},
-            {"ring": 2, "offset": 3}, {"ring": 3, "offset": 5}, {"ring": 4, "offset": 7}]
+          "hexes": [{"ring": 3, "offset": 4}, {"ring": 4, "offset": 5}, {"ring": 4, "offset": 6}, 
+                    {"ring": 4, "offset": 7}]
         },
         {
           "name": "Byron Center",
