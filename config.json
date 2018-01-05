@@ -311,7 +311,7 @@
             "minZoom": 10
           },
           "style": {
-            "fillColor": "#75C6FF",
+            "fillColor": "#00FFFF",
             "strokeWeight": 1,
             "strokeColor": "#666666",
             "strokeOpacity": 0.2
