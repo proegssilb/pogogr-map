@@ -273,8 +273,7 @@
             "strokeWeight": 8,
             "minZoom": 10
           },
-          "hexes": [{"ring": 5, "offset": 16}, {"ring": 5, "offset": 17}, {"ring": 6, "offset": 20},
-            {"ring": 5, "offset": 18}]
+          "hexes": [{"ring": 5, "offset": 16}, {"ring": 5, "offset": 17}, {"ring": 6, "offset": 20}]
         },
         {
           "name": "#byroncenter_rare",
@@ -291,8 +290,7 @@
             "strokeOpacity": 0.2,
             "fillOpacity": 0
           },
-          "hexes": [{"ring": 5, "offset": 16}, {"ring": 5, "offset": 17}, {"ring": 6, "offset": 20},
-            {"ring": 5, "offset": 18}]
+          "hexes": [{"ring": 5, "offset": 16}, {"ring": 5, "offset": 17}, {"ring": 6, "offset": 20}]
         }
       ]
     },
